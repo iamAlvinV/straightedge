@@ -1,51 +1,36 @@
 # Straightedge
 
-A design execution engine for Claude.ai, Claude Code, Cursor, and Codex.
+**A design skill for Claude, Cursor, and Codex that computes its own gates.**
 
-It makes design work pass before it ships: real contrast math, a shape catalog that refuses to repeat itself, and a scan that blocks delivery on a defect. The format follows the open Agent Skills standard, a folder with a SKILL.md, so it runs in any tool that reads that standard.
+It picks a page shape before it picks a palette, runs the contrast math in Python instead of claiming it passed, and logs every build so the next one cannot repeat the last. Web, print, brand, packaging, apparel.
 
-Built by Alvin V, brand and visual systems designer, New Orleans. [IAMALVINV.COM](https://iamalvinv.com) · @IAMALVINV
+Four verbs: build (default), `audit`, `restyle`, `extract`. Follows the open Agent Skills standard, a folder with a SKILL.md.
+
+Built by [Alvin V](https://iamalvinv.com), brand and visual systems designer, New Orleans. Prior art: [Hallmark](https://github.com/Nutlope/hallmark) by Nutlope, MIT, whose shape-before-palette premise this shares.
 
 ## Six briefs, six shapes
 
-Built with Straightedge in one sitting. No two consecutive pages share a shape, a nav, a footer, or more than one dressing axis. Every color pairing computed, every page reflow-tested at five widths. Full set and the gate report in [`examples/`](examples/).
+Each page started from a different structural shape, chosen before any color or typeface. No two consecutive pages share a shape, a nav, a footer, or more than one of the three dressing axes. Every pairing computed, every page reflowed at five widths. Full set and the gate report in [`examples/`](examples/).
 
 | | | |
 |:---:|:---:|:---:|
 | [![Statement](examples/renders/01.png)](examples/01-statement.html) | [![Console](examples/renders/02.png)](examples/02-console.html) | [![Counter](examples/renders/03.png)](examples/03-counter.html) |
-| **Statement** | **Console** | **Counter** |
+| **Statement**<br><sub>The gate and guide split</sub> | **Console**<br><sub>Live script output</sub> | **Counter**<br><sub>Accessibility and performance thresholds</sub> |
 | [![Timeline](examples/renders/04.png)](examples/04-timeline.html) | [![Register](examples/renders/05.png)](examples/05-register.html) | [![Gallery](examples/renders/06.png)](examples/index.html) |
-| **Timeline** | **Register** | **Gallery** |
+| **Timeline**<br><sub>The order of operations</sub> | **Register**<br><sub>The twenty-two shape catalog</sub> | **Gallery**<br><sub>Contact sheet</sub> |
 
-It does four things:
+One self-contained HTML file each. No build step, no framework, fonts by CDN.
+
+## What it does
 
 1. Holds every measurable standard in one place and refuses to ship work that fails one.
-2. Picks a shape from a catalog before it picks any visual rule, and logs it so the next piece is a different shape.
-3. Routes a task to the right references instead of loading all of them.
+2. Picks a shape from a catalog before any visual rule, and logs it so the next piece differs.
+3. Routes a task to the references it needs instead of loading all of them.
 4. Computes the numbers with scripts rather than estimating them by eye.
 
+No themes ship with it, on purpose. Shapes and gates come from the skill; palette and type voice come from your brand, so two users never land the same look.
+
 Craft is decided here. Taste and direction are not.
-
-Four verbs: build (default), `audit`, `restyle`, `extract`.
-
-## Prior art
-
-Straightedge shares a premise with [Hallmark](https://github.com/Nutlope/hallmark) (MIT): a design tool should pick a page shape before it picks a palette, and it should refuse the defaults every model was trained into. That premise is Hallmark's, and it is credited.
-
-The comparison below describes Hallmark as of August 2026. It is an active project, so check the repo rather than trusting this table if the difference matters to you.
-
-Where the two differ:
-
-| | Hallmark | Straightedge |
-|---|---|---|
-| Gate verification | Gates are checked by the model as it works; the repo ships no scripts | Python computes contrast, rotation, reflow, and the ship scan; scripts exit non-zero |
-| Rotation | A log file the model reads and judges against | A script parses the hex values, derives the axes, and refuses the repeat |
-| Mediums | Web | Web, print, signage, packaging, apparel, identity, decks, social |
-| Claim discipline | An anti-patterns reference | A sourced blocklist of debunked design statistics, enforced by string scan |
-| Standards | Cited in the rule-set | Every gate traced to WCAG 2.2, Material 3, Apple HIG, or Core Web Vitals in `sources.md` |
-| Themes | A catalog of named themes to dress the page in | None, on purpose. Shapes and gates ship; palette and type voice come from your brand, so two users never land the same look |
-
-The shape catalog, part library, gates, blocklist, and all five scripts are written from scratch. No Hallmark file, table, or catalog is reproduced here.
 
 ## What you can make with it
 
