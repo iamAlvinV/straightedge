@@ -6,7 +6,7 @@ It picks a page shape before it picks a palette, runs the contrast math in Pytho
 
 Four verbs: build (default), `audit`, `restyle`, `extract`. Follows the open Agent Skills standard, a folder with a SKILL.md.
 
-Built by [Alvin V](https://iamalvinv.com), brand and visual systems designer, New Orleans. Prior art: [Hallmark](https://github.com/Nutlope/hallmark) by Nutlope, MIT, whose shape-before-palette premise this shares.
+Built by [Alvin V](https://iamalvinv.com), brand and visual systems designer, New Orleans.
 
 ## Six briefs, six shapes
 
