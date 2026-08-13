@@ -1,8 +1,0 @@
-.straightedge/
-__pycache__/
-*.pyc
-.DS_Store
-node_modules/
-render*.png
-*-squint.png
-*-320.png
