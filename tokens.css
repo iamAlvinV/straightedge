@@ -1,0 +1,59 @@
+/* Straightedge token starter, three tiers: primitives, semantic, component.
+ * Swap the primitive values for a brand. Nothing below the primitives block
+ * should ever hold a raw color, size, or family. Compute every text pairing
+ * with scripts/contrast.py before shipping.
+ * Example values are the IamAlvinV palette. Replace them with yours. */
+
+:root {
+  /* 1. Primitives */
+  --paper-100: #E9E7DE;
+  --paper-50:  #F2F0E9;
+  --ink-900:   #0F0E0C;
+  --ink-700:   #35332E;
+  --lime-500:  #C6E220;
+  --coral-500: #DE7256;
+
+  --font-display: "Anton", sans-serif;
+  --font-body:    "Archivo", sans-serif;
+  --font-mono:    "Space Mono", monospace;
+
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-6: 48px;
+  --space-8: 64px;
+
+  --text-body: 16px;
+  --text-subhead: 21px;
+  --text-title: 28px;
+  --text-headline: 38px;
+  --text-display: 51px;
+
+  --radius: 0;
+
+  /* 2. Semantic. Point at primitives only. */
+  --surface:      var(--paper-100);
+  --surface-2:    var(--paper-50);
+  --text:         var(--ink-900);
+  --text-muted:   var(--ink-700);
+  --accent:       var(--lime-500);
+  --accent-2:     var(--coral-500);
+  --focus:        var(--ink-900);
+
+  /* 3. Component. Point at semantic only. */
+  --button-bg:    var(--accent);
+  --button-text:  var(--text);
+  --button-focus: var(--focus);
+  --rule:         var(--text);
+}
+
+/* Dark base: invert lightness, hold hue and chroma. */
+[data-theme="dark"] {
+  --surface:    var(--ink-900);
+  --surface-2:  var(--ink-700);
+  --text:       var(--paper-100);
+  --text-muted: var(--paper-50);
+}
+
+/* Designed by IamAlvinV */

@@ -172,6 +172,9 @@ python3 scripts/scan.py page.html
 
 # Render to PNG, produce the squint frame, check the 320px reflow gate
 python3 scripts/render.py page.html --width 1440 --out render.png --reflow
+
+# First-screen crop for a gallery or a contact sheet, 1200px wide
+python3 scripts/render.py page.html --thumb --out thumb.png
 ```
 
 `contrast.py` and `rotate.py` are gates. `scan.py` is the ship check. None of them are optional on delivered work.
@@ -182,6 +185,7 @@ Part of the deliverable, not preferences.
 
 - **No em dash.** U+2014 appears nowhere in the work, the copy, or the chat. Paired hyphens used as a dash are the same violation.
 - **Deliver the artifact, not the spec.** A working page, a rendered PNG, a real file.
+- **Match the frame to the viewer.** Full-page capture is for reviewing a page. A gallery, a contact sheet, or any image a reader scans at small size uses `--thumb`, the first screen. A long page captured full and shown small is a strip nobody can read.
 - **Finished pieces only.** No version labels, no "Direction A", no process notes inside the work.
 - **Credit line at the bottom of every artifact:** `Designed by IamAlvinV`.
 - **Copy comes from supplied material.** Never invent pricing, claims, or identity details.
