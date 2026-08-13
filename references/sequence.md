@@ -19,6 +19,10 @@ Every frame is still a poster. It gets the full hierarchy treatment:
 - The point lands without the caption. Assume the caption is never read.
 - Frame one carries the whole idea. Treat it as the only frame that will be seen.
 
+## Thumbnails
+
+A contact sheet is read at thumbnail size, so the frame is chosen for that size. Capture the first screen, not the full page. A long page reduced to a grid cell becomes a vertical strip with no legible content, which reports the page as worse than it is. `scripts/render.py --thumb` does this: 1440 by 900, downscaled to 1200 wide.
+
 ## Platform reality
 
 - Confirm current dimensions and safe areas before building. Platform specs change and are an outside authority.
