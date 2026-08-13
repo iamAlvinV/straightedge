@@ -6,6 +6,17 @@ It makes design work pass before it ships: real contrast math, a shape catalog t
 
 Built by Alvin V, brand and visual systems designer, New Orleans. [IAMALVINV.COM](https://iamalvinv.com) · @IAMALVINV
 
+## Six briefs, six shapes
+
+Built with Straightedge in one sitting. No two consecutive pages share a shape, a nav, a footer, or more than one dressing axis. Every color pairing computed, every page reflow-tested at five widths. Full set and the gate report in [`examples/`](examples/).
+
+| | | |
+|:---:|:---:|:---:|
+| [![Statement](examples/renders/01.png)](examples/01-statement.html) | [![Console](examples/renders/02.png)](examples/02-console.html) | [![Counter](examples/renders/03.png)](examples/03-counter.html) |
+| **Statement** | **Console** | **Counter** |
+| [![Timeline](examples/renders/04.png)](examples/04-timeline.html) | [![Register](examples/renders/05.png)](examples/05-register.html) | [![Gallery](examples/renders/06.png)](examples/index.html) |
+| **Timeline** | **Register** | **Gallery** |
+
 It does four things:
 
 1. Holds every measurable standard in one place and refuses to ship work that fails one.
