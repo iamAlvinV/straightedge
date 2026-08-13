@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shape catalog: twenty-two compositions on one sheet</title>
+<meta name="description" content="A data sheet of every page and composition shape in the Straightedge catalog, with the rhythm each one produces and the brief it fits.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;700&family=Work+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* Straightedge · shape: Register · base: #131211 · accent: #EA5A2B · display: geometric sans
+ * nav: nav:band · foot: foot:mark
+ * gates: contrast pass · reflow pass · scan clean
+ */
+
+:root {
+  --field:  #131211;
+  --ink:    #EDE9E1;
+  --ink-2:  #A9A296;
+  --accent: #EA5A2B;
+  --rule:   #6B655C;
+
+  --face-display: "Jost", system-ui, sans-serif;
+  --face-body:    "Work Sans", system-ui, sans-serif;
+
+  --size-poster: clamp(2.369rem, 7.4vw, 5.612rem);
+  --size-title:  clamp(1.331rem, 2.2vw, 1.775rem);
+  --size-cell:   1.331rem;
+  --size-lede:   1.331rem;
+  --size-body:   1rem;
+  --size-label:  0.875rem;
+
+  --s1: 8px;  --s2: 16px; --s3: 24px; --s4: 32px;
+  --s5: 40px; --s6: 48px; --s7: 64px; --s8: 104px;
+
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { overflow-x: clip; -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--field);
+  color: var(--ink);
+  font-family: var(--face-body);
+  font-size: var(--size-body);
+  line-height: 1.6;
+  overflow-x: clip;
+}
+
+.sheet {
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 var(--s3) var(--s8);
+}
+
+@media (min-width: 768px) { .sheet { padding: 0 var(--s6) var(--s8); } }
+
+/* nav:band ---------------------------------------------------------------- */
+
+.band {
+  background: var(--accent);
+  color: var(--field);
+}
+
+.band__inner {
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: var(--s2) var(--s3);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s1) var(--s4);
+}
+
+@media (min-width: 768px) { .band__inner { padding: var(--s2) var(--s6); } }
+
+.band__word {
+  font-family: var(--face-display);
+  font-weight: 700;
+  font-size: var(--size-cell);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.band__nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s1) var(--s3);
+  font-size: var(--size-label);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.band a { color: var(--field); }
+.band a:hover, .band a:active { color: var(--ink); }
+.band a:focus-visible { outline: 3px solid var(--field); color: var(--field); }
+
+/* poster head ------------------------------------------------------------- */
+
+.head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--s4);
+  padding: var(--s7) 0 var(--s6);
+  border-bottom: 3px solid var(--ink);
+}
+
+@media (min-width: 900px) {
+  .head { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: var(--s7); align-items: end; }
+}
+
+.head h1 {
+  font-family: var(--face-display);
+  font-weight: 700;
+  font-size: var(--size-poster);
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  margin: 0;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.head h1 span { display: block; color: var(--accent); }
+
+.head__note { margin: 0; color: var(--ink-2); max-width: 44ch; }
+.head__note b { color: var(--ink); font-weight: 600; }
+
+/* head:stack -------------------------------------------------------------- */
+
+.group { padding-top: var(--s7); }
+
+.group__label {
+  font-size: var(--size-label);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 var(--s1);
+}
+
+.group__head {
+  font-family: var(--face-display);
+  font-weight: 500;
+  font-size: var(--size-title);
+  line-height: 1.25;
+  letter-spacing: 0.01em;
+  margin: 0 0 var(--s4);
+  max-width: 54ch;
+}
+
+/* the register grid, rules drawn on the cells ----------------------------- */
+
+.register {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--rule);
+  border-left: 1px solid var(--rule);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 600px)  { .register { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 960px)  { .register { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 1240px) { .register { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+.cell {
+  position: relative;
+  background: var(--field);
+  padding: var(--s3);
+  border-right: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s1);
+}
+
+.cell h3 {
+  font-family: var(--face-display);
+  font-weight: 700;
+  font-size: var(--size-cell);
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  margin: 0;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.cell-marked h3 { padding-right: 8ch; }
+
+.cell p { margin: 0; color: var(--ink-2); max-width: 34ch; }
+
+.cell dt {
+  font-size: var(--size-label);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.cell dl { margin: auto 0 0; padding-top: var(--s2); border-top: 1px solid var(--rule); }
+.cell dd { margin: 0; }
+
+.cell p.tag {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: var(--size-label);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--field);
+  background: var(--accent);
+  padding: 2px var(--s1);
+  min-height: 24px;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* foot:mark --------------------------------------------------------------- */
+
+.mark { border-top: 3px solid var(--ink); margin-top: var(--s7); padding-top: var(--s5); }
+
+.mark__word {
+  font-family: var(--face-display);
+  font-weight: 700;
+  font-size: clamp(2.369rem, 12vw, 8.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  margin: 0 0 var(--s4);
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.mark__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s1) var(--s4);
+  font-size: var(--size-label);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+/* link states ------------------------------------------------------------- */
+
+a {
+  color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  display: inline-block;
+  padding: 4px 0;
+  min-height: 24px;
+  transition: color 140ms var(--ease-exit);
+}
+a:hover { color: var(--ink); }
+a:active { color: var(--ink); text-decoration-thickness: 3px; }
+a:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; color: var(--ink); }
+a[aria-disabled="true"] { color: var(--ink-2); text-decoration: line-through; pointer-events: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  a { transition-duration: 0.01ms; }
+}
+
+@media print {
+  @page { margin: 12mm; }
+  .cell, .head { break-inside: avoid; }
+  .band { border-bottom: 1px solid var(--rule); }
+}
+</style>
+</head>
+<body>
+
+<header class="band">
+  <div class="band__inner">
+    <p class="band__word">Straightedge</p>
+    <nav class="band__nav" aria-label="Example set">
+      <a href="index.html">The set</a>
+      <a href="04-timeline.html">Order of operations</a>
+      <a href="03-counter.html">Gate floors</a>
+    </nav>
+  </div>
+</header>
+
+<main class="sheet">
+
+  <section class="head">
+    <h1>Shape catalog <span>Twenty-two</span></h1>
+    <p class="head__note">The shape is picked before any visual rule, and the rotation script refuses one used in the last three runs. <b>Six of these twenty-two are used in this example set</b>, marked in the cells below.</p>
+  </section>
+
+  <section class="group">
+    <p class="group__label">Fourteen</p>
+    <h2 class="group__head">Screen shapes. The rhythm of the sections, the entry point, the divider language.</h2>
+    <ul class="register">
+
+      <li class="cell">
+        <h3>Stack</h3>
+        <p>Hero, then evenly weighted sections down a single column. The honest default.</p>
+        <dl><dt>Fits</dt><dd>Docs, changelog, simple service page</dd></dl>
+      </li>
+
+      <li class="cell">
+        <h3>Ledger</h3>
+        <p>Two columns. Left holds labels and metadata, right holds content. Reads like a spec sheet.</p>
+        <dl><dt>Fits</dt><dd>Technical products, pricing, comparison</dd></dl>
+      </li>
+
+      <li class="cell cell-marked">
+        <p class="tag">Set 01</p>
+        <h3>Statement</h3>
+        <p>One oversized display line occupies the first screen alone. Everything else is small and below it.</p>
+        <dl><dt>Fits</dt><dd>Manifesto, launch, brand position</dd></dl>
+      </li>
+
+      <li class="cell">
+        <h3>Bento</h3>
+        <p>Irregular tile grid, tiles of unequal span, one tile carries the hero.</p>
+        <dl><dt>Fits</dt><dd>Feature sets, dashboards, product tours</dd></dl>
+      </li>
+
+      <li class="cell">
+        <h3>Broadsheet</h3>
+        <p>Long-form reading column, generous margins, sidenotes, a running head. No cards anywhere.</p>
+        <dl><dt>Fits</dt><dd>Essays, research, editorial, case studies</dd></dl>
+      </li>
+
+      <li class="cell cell-marked">
+        <p class="tag">Set 02</p>
+        <h3>Console</h3>
+        <p>Interface first. The product is the hero, copy sits around it.</p>
+        <dl><dt>Fits</dt><dd>Tools, editors, dashboards</dd></dl>
+      </li>
+
+      <li class="cell">
+        <h3>Index</h3>
+        <p>The page is a list. Rows, not cards. Rules between, not borders around.</p>
+        <dl><dt>Fits</dt><dd>Catalogs, archives, portfolios, directories</dd></dl>
+      </li>
+
+      <li class="cell">
+        <h3>Split</h3>
+        <p>Fixed panel on one side, scrolling content on the other. Two speeds at once.</p>
+        <dl><dt>Fits</dt><dd>Case studies, product detail, galleries</dd></dl>
+      </li>
+
+      <li class="cell cell-marked">
+        <p class="tag">Set 03</p>
+        <h3>Counter</h3>
+        <p>Numbers lead. Large figures set the hierarchy, prose supports them. Requires real numbers.</p>
+        <dl><dt>Fits</dt><dd>Reports, results, proof pages</dd></dl>
+      </li>
+
+      <li class="cell">
+        <h3>Letter</h3>
+        <p>Addressed prose, signed. One voice speaking directly. Minimal structure.</p>
+        <dl><dt>Fits</dt><dd>Founder notes, apologies, announcements</dd></dl>
+      </li>
+
+      <li class="cell cell-marked">
+        <p class="tag">Set 04</p>
+        <h3>Timeline</h3>
+        <p>Ordered progression down or across. The order is the content.</p>
+        <dl><dt>Fits</dt><dd>History, process, roadmap, changelog</dd></dl>
+      </li>
+
+      <li class="cell cell-marked">
+        <p class="tag">Set 06</p>
+        <h3>Gallery</h3>
+        <p>Image-led, text is caption. Grid or sequence, never both.</p>
+        <dl><dt>Fits</dt><dd>Photography, product, portfolio</dd></dl>
+      </li>
+
+      <li class="cell">
+        <h3>Readout</h3>
+        <p>Monospace, ruled, dense. Information allowed to look like information.</p>
+        <dl><dt>Fits</dt><dd>Developer tools, status pages, data</dd></dl>
+      </li>
+
+      <li class="cell">
+        <h3>Placard</h3>
+        <p>One idea, one image, one line. Almost no scroll. The page is a single frame.</p>
+        <dl><dt>Fits</dt><dd>Events, campaigns, single-action pages</dd></dl>
+      </li>
+
+    </ul>
+  </section>
+
+  <section class="group">
+    <p class="group__label">Eight</p>
+    <h2 class="group__head">Print and static shapes. The composition of the field, and where the type sits in it.</h2>
+    <ul class="register">
+
+      <li class="cell">
+        <h3>Type slab</h3>
+        <p>Display type is the image. No photograph. Fills the field.</p>
+        <dl><dt>Fits</dt><dd>Gigs, statements, typographic posters</dd></dl>
+      </li>
+
+      <li class="cell">
+        <h3>Frame</h3>
+        <p>Image occupies a bounded rectangle, type sits in the margin around it.</p>
+        <dl><dt>Fits</dt><dd>Exhibitions, film, product</dd></dl>
+      </li>
+
+      <li class="cell">
+        <h3>Bleed</h3>
+        <p>Image runs edge to edge, type sits on top in one cluster.</p>
+        <dl><dt>Fits</dt><dd>Fashion, travel, atmosphere</dd></dl>
+      </li>
+
+      <li class="cell cell-marked">
+        <p class="tag">Set 05</p>
+        <h3>Register</h3>
+        <p>Strict grid, content in cells, rules visible. Swiss discipline.</p>
+        <dl><dt>Fits</dt><dd>Schedules, programs, data posters</dd></dl>
+      </li>
+
+      <li class="cell">
+        <h3>Stack cut</h3>
+        <p>Horizontal bands of different heights, one band per idea.</p>
+        <dl><dt>Fits</dt><dd>Line-ups, menus, multi-item announcements</dd></dl>
+      </li>
+
+      <li class="cell">
+        <h3>Diagonal</h3>
+        <p>The primary axis is not horizontal. Everything aligns to a single tilt.</p>
+        <dl><dt>Fits</dt><dd>Sport, motion, energy</dd></dl>
+      </li>
+
+      <li class="cell">
+        <h3>Center</h3>
+        <p>Symmetrical, axial, formal. Deliberate, not lazy.</p>
+        <dl><dt>Fits</dt><dd>Formal invitations, luxury, ceremony</dd></dl>
+      </li>
+
+      <li class="cell">
+        <h3>Margin note</h3>
+        <p>Content sits low or off-center, most of the field is empty.</p>
+        <dl><dt>Fits</dt><dd>Luxury, minimal, high-restraint work</dd></dl>
+      </li>
+
+    </ul>
+  </section>
+
+  <footer class="mark">
+    <p class="mark__word">Pick the shape first</p>
+    <p class="mark__links">
+      <span>Shape: Register</span>
+      <span>Example 05 of 06</span>
+      <span><a href="index.html">Back to the set</a></span>
+      <span>Designed by IamAlvinV</span>
+    </p>
+  </footer>
+
+</main>
+
+</body>
+</html>

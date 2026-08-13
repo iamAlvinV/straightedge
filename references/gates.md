@@ -36,7 +36,7 @@ Note: APCA is perceptual and handles white-on-orange better than WCAG 2, but it 
 
 ## Type and measure
 
-- Body floor: 16px on screen.
+- Body floor: 16px on screen. This governs body copy. Caps micro-labels, metadata, and legal lines may set smaller, and at that size they must clear 4.5:1 like any normal text.
 - Anything under 24px, or under 18.66px bold, is normal text and must clear 4.5:1.
 - Measure: 50 to 75 characters. 66 is the target for a single column. 80 is the hard ceiling (WCAG SC 1.4.8, Level AAA). UI microcopy 25 to 40 characters is fine.
 - Set measure in `ch` or `em`. A pixel width only holds at one font size.

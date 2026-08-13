@@ -16,7 +16,8 @@ EXTS = {".html", ".htm", ".md", ".txt", ".css", ".jsx", ".tsx", ".js", ".ts", ".
 CHECKS = [
     ("em dash U+2014", r"\u2014", "FAIL"),
     ("en dash used as a dash", r"\s\u2013\s", "WARN"),
-    # alnum on both sides, or spaced. Skips |---| table rules, --custom-props, --cli-flags
+    # alnum on both sides, or spaced. Skips |---| table rules, --custom-props, --cli-flags.
+    # Code identifiers are masked before this runs, so BEM modifiers do not trip it.
     ("paired hyphens used as a dash", r"[A-Za-z0-9]--[A-Za-z0-9]|\s--\s", "FAIL"),
     ("decorative checkmark or arrow", r"[\u2713\u2714\u2705\u2192\u27a1\u21d2\u2794]", "WARN"),
 ]
@@ -77,6 +78,25 @@ def line_of(text, index):
     return text.count("\n", 0, index) + 1
 
 
+# Identifiers are not prose. A BEM modifier (card__title--large), a CSS selector,
+# and a class attribute all legitimately contain a double hyphen. Blank them out,
+# preserving length so line numbers stay correct, before the dash rules run.
+IDENT_ZONES = [
+    re.compile(r'(?:class|className|id)\s*=\s*"[^"]*"'),
+    re.compile(r"(?:class|className|id)\s*=\s*'[^']*'"),
+    re.compile(r"^[ \t]*[.#][A-Za-z0-9_-][^{\n]*(?=\{)", re.M),   # CSS selector lines
+    re.compile(r"^[ \t]*--[A-Za-z0-9-]+\s*:", re.M),               # custom property declarations
+    re.compile(r"var\(\s*--[A-Za-z0-9-]+[^)]*\)"),                  # var() references
+]
+
+
+def mask_identifiers(text):
+    out = text
+    for pattern in IDENT_ZONES:
+        out = pattern.sub(lambda m: " " * len(m.group(0)), out)
+    return out
+
+
 def scan_file(path):
     try:
         text = open(path, encoding="utf-8", errors="replace").read()
@@ -88,9 +108,10 @@ def scan_file(path):
         entry = (path, line, label, snippet.strip()[:70])
         (fails if sev == "FAIL" else warns).append(entry)
 
+    masked = mask_identifiers(text)
     for label, pattern, sev in CHECKS:
-        for m in re.finditer(pattern, text):
-            add(sev, line_of(text, m.start()), label, text[max(0, m.start() - 25):m.start() + 25])
+        for m in re.finditer(pattern, masked):
+            add(sev, line_of(masked, m.start()), label, text[max(0, m.start() - 25):m.start() + 25])
 
     lowered = text.lower()
     allow_filler = "scan:allow-filler" in lowered

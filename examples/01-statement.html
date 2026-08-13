@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Straightedge: the gate and the guide</title>
+<meta name="description" content="Straightedge separates the rules that are pass or fail from the rules that are judgment, and states which one wins when they collide.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Public+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* Straightedge · shape: Statement · base: #F4F1EA · accent: #B3261E · display: condensed heavy
+ * nav: nav:mark · foot: foot:statement
+ * gates: contrast pass · reflow pass · scan clean
+ */
+
+:root {
+  /* surface */
+  --paper:   #F4F1EA;
+  --ink:     #17150F;
+  --ink-2:   #4A463C;
+  --accent:  #B3261E;
+  --rule:    #8B8474;
+
+  /* type */
+  --face-display: "Anton", "Arial Narrow", sans-serif;
+  --face-body:    "Public Sans", system-ui, sans-serif;
+
+  --size-statement: clamp(2.75rem, 10.2vw, 8.5rem);
+  --size-title:     clamp(1.775rem, 3.4vw, 2.369rem);
+  --size-lede:      1.331rem;
+  --size-body:      1rem;
+  --size-label:     0.875rem;
+  --size-numeral:   1.775rem;
+
+  /* 8pt space scale */
+  --s1: 8px;  --s2: 16px; --s3: 24px; --s4: 32px;
+  --s5: 40px; --s6: 48px; --s7: 64px; --s8: 104px;
+
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  overflow-x: clip;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--face-body);
+  font-size: var(--size-body);
+  line-height: 1.6;
+  overflow-x: clip;
+}
+
+.shell {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 var(--s3);
+}
+
+@media (min-width: 768px) { .shell { padding: 0 var(--s6); } }
+
+/* nav:mark ---------------------------------------------------------------- */
+
+.mark {
+  padding-top: var(--s5);
+  display: flex;
+  align-items: baseline;
+  gap: var(--s2);
+  flex-wrap: wrap;
+}
+
+.mark__word {
+  font-family: var(--face-display);
+  font-size: var(--size-numeral);
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.mark__role {
+  font-size: var(--size-label);
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  margin: 0;
+}
+
+/* hero:statement ---------------------------------------------------------- */
+
+.statement {
+  min-height: 86svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--s7) 0 var(--s6);
+}
+
+.statement__line {
+  font-family: var(--face-display);
+  font-size: var(--size-statement);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  margin: 0;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+
+.statement__line b { font-weight: inherit; color: var(--accent); }
+
+.statement__source {
+  margin: var(--s5) 0 0;
+  max-width: 46ch;
+  color: var(--ink-2);
+  font-size: var(--size-body);
+  border-top: 2px solid var(--rule);
+  padding-top: var(--s2);
+}
+
+/* head:ruled -------------------------------------------------------------- */
+
+.block { padding: var(--s7) 0; border-top: 2px solid var(--ink); }
+
+.block__head {
+  font-family: var(--face-display);
+  font-size: var(--size-title);
+  line-height: 1.15;
+  letter-spacing: 0.005em;
+  text-transform: uppercase;
+  margin: 0 0 var(--s4);
+  padding-bottom: var(--s2);
+  border-bottom: 1px solid var(--rule);
+}
+
+.lede {
+  font-size: var(--size-lede);
+  line-height: 1.5;
+  max-width: 58ch;
+  margin: 0 0 var(--s5);
+}
+
+.prose { max-width: 66ch; }
+.prose p { margin: 0 0 var(--s3); }
+.prose p:last-child { margin-bottom: 0; }
+
+/* two definitions ---------------------------------------------------------- */
+
+.defs {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--s5);
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .defs { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s6); }
+}
+
+.defs dt {
+  font-family: var(--face-display);
+  font-size: var(--size-lede);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  padding-bottom: var(--s1);
+  border-bottom: 2px solid var(--accent);
+  margin-bottom: var(--s2);
+}
+
+.defs dd { margin: 0; max-width: 46ch; }
+
+/* feat:list, ordinal ------------------------------------------------------- */
+
+.order { list-style: none; margin: 0; padding: 0; max-width: 72ch; counter-reset: rank; }
+
+.order li {
+  counter-increment: rank;
+  display: grid;
+  grid-template-columns: 3ch minmax(0, 1fr);
+  gap: var(--s3);
+  padding: var(--s3) 0;
+  border-top: 1px solid var(--rule);
+  align-items: baseline;
+}
+
+.order li:first-child { border-top: 0; padding-top: 0; }
+
+.order li::before {
+  content: counter(rank);
+  font-family: var(--face-display);
+  font-size: var(--size-numeral);
+  line-height: 1;
+  color: var(--accent);
+}
+
+.order strong { font-weight: 600; }
+.order span { display: block; color: var(--ink-2); }
+
+.caution {
+  margin-top: var(--s6);
+  max-width: 60ch;
+  border-left: 4px solid var(--accent);
+  padding-left: var(--s3);
+}
+
+/* foot:statement ----------------------------------------------------------- */
+
+.close { border-top: 2px solid var(--ink); padding: var(--s7) 0 var(--s8); }
+
+.close__line {
+  font-family: var(--face-display);
+  font-size: clamp(1.775rem, 5.4vw, 3.156rem);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  margin: 0;
+  max-width: 20ch;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.close__meta {
+  margin: var(--s5) 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s1) var(--s4);
+  font-size: var(--size-label);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+/* link states -------------------------------------------------------------- */
+
+a {
+  color: var(--ink);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  padding: 4px 0;
+  display: inline-block;
+  min-height: 24px;
+  transition: color 140ms var(--ease-exit);
+}
+a:hover { color: var(--accent); }
+a:active { color: var(--accent); text-decoration-thickness: 3px; }
+a:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 3px;
+  color: var(--ink);
+}
+a[aria-disabled="true"] {
+  color: var(--ink-2);
+  text-decoration: line-through;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  a { transition-duration: 0.01ms; }
+}
+</style>
+</head>
+<body>
+
+<header class="shell mark">
+  <p class="mark__word">Straightedge</p>
+  <p class="mark__role">Design execution engine</p>
+</header>
+
+<main>
+  <section class="shell statement">
+    <h1 class="statement__line">A design that fails a gate is <b>wrong</b>, not a matter of taste.</h1>
+    <p class="statement__source">Every rule in this system is one of two things. Know which one you are looking at before you argue with it.</p>
+  </section>
+
+  <section class="shell block">
+    <h2 class="block__head">Gate or guide</h2>
+    <dl class="defs">
+      <div>
+        <dt>Gate</dt>
+        <dd>Any line with a number, a standard name, or a measurement that must pass. Pass or fail. WCAG, Material, Core Web Vitals.</dd>
+      </div>
+      <div>
+        <dt>Guide</dt>
+        <dd>Judgment. Hierarchy tactics, palette mood, pacing, imperfection, type personality. Argue with these.</dd>
+      </div>
+    </dl>
+  </section>
+
+  <section class="shell block">
+    <h2 class="block__head">Conflict order, highest wins</h2>
+    <p class="lede">When two rules disagree, the one further up this list decides. The order is fixed.</p>
+    <ol class="order">
+      <li><div><strong>Accessibility gates.</strong> <span>Never bend.</span></div></li>
+      <li><div><strong>Platform hard specs.</strong> <span>Icon sizes, safe zones, ad formats, print production.</span></div></li>
+      <li><div><strong>The communication goal.</strong> <span>What the piece exists to fix.</span></div></li>
+      <li><div><strong>The client or house brand system.</strong> <span>Read it before overwriting it.</span></div></li>
+      <li><div><strong>Convention defaults.</strong> <span>Grid, spacing scale, measure, breakpoints.</span></div></li>
+      <li><div><strong>Guides.</strong> <span>Everything that is judgment.</span></div></li>
+    </ol>
+    <div class="caution prose">
+      <p>If a brand system pushes body text under 4.5:1, a tap target under 24px, or kills a reduced-motion fallback, the gate holds. Name the conflict. Do not ship it quietly.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="shell close">
+  <p class="close__line">Craft is decided here. Taste and direction are yours.</p>
+  <p class="close__meta">
+    <span>Shape: Statement</span>
+    <span>Example 01 of 06</span>
+    <span><a href="index.html">Back to the set</a></span>
+    <span>Designed by IamAlvinV</span>
+  </p>
+</footer>
+
+</body>
+</html>

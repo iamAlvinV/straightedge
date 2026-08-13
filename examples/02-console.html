@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>contrast.py and scan.py: the gate output for this example set</title>
+<meta name="description" content="The actual terminal output that decided the palettes in this example set. Contrast is computed by script, never estimated by eye.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* Straightedge · shape: Console · base: #0E1116 · accent: #79C0FF · display: mono
+ * nav: nav:tier · foot: foot:line
+ * gates: contrast pass · reflow pass · scan clean
+ */
+
+:root {
+  --ground:  #0E1116;
+  --panel:   #171C24;
+  --text:    #D9E0E8;
+  --text-2:  #A2ADBA;
+  --accent:  #79C0FF;
+  --rule:    #626C7A;
+
+  --face-display: "JetBrains Mono", ui-monospace, monospace;
+  --face-body:    "IBM Plex Sans", system-ui, sans-serif;
+
+  --size-head:    clamp(1.775rem, 4vw, 3.156rem);
+  --size-title:   1.775rem;
+  --size-lede:    1.331rem;
+  --size-body:    1rem;
+  --size-code:    0.9375rem;
+  --size-label:   0.875rem;
+
+  --s1: 8px;  --s2: 16px; --s3: 24px; --s4: 32px;
+  --s5: 40px; --s6: 48px; --s7: 64px; --s8: 104px;
+
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { overflow-x: clip; -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--text);
+  font-family: var(--face-body);
+  font-size: var(--size-body);
+  line-height: 1.6;
+  overflow-x: clip;
+}
+
+.shell {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 var(--s3);
+}
+
+@media (min-width: 768px) { .shell { padding: 0 var(--s5); } }
+
+/* nav:tier ---------------------------------------------------------------- */
+
+.tier__utility {
+  border-bottom: 1px solid var(--rule);
+  font-family: var(--face-display);
+  font-size: var(--size-label);
+  letter-spacing: 0.04em;
+  color: var(--text-2);
+}
+
+.tier__utility .shell {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s1) var(--s4);
+  padding-top: var(--s1);
+  padding-bottom: var(--s1);
+  align-items: center;
+}
+
+.tier__primary { border-bottom: 1px solid var(--rule); }
+
+.tier__primary .shell {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s2) var(--s4);
+  padding-top: var(--s3);
+  padding-bottom: var(--s3);
+}
+
+.tier__word {
+  font-family: var(--face-display);
+  font-weight: 700;
+  font-size: var(--size-title);
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.tier__word span { color: var(--accent); }
+
+.tier__run {
+  font-family: var(--face-display);
+  font-size: var(--size-label);
+  color: var(--text-2);
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+/* hero:product ------------------------------------------------------------ */
+
+.intro { padding: var(--s7) 0 var(--s5); }
+
+.intro h1 {
+  font-family: var(--face-display);
+  font-weight: 700;
+  font-size: var(--size-head);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 var(--s3);
+  max-width: 24ch;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.intro p {
+  font-size: var(--size-lede);
+  line-height: 1.5;
+  max-width: 62ch;
+  margin: 0;
+  color: var(--text-2);
+}
+
+/* the console panel ------------------------------------------------------- */
+
+.run { margin: 0 0 var(--s6); }
+
+.run__cmd {
+  font-family: var(--face-display);
+  font-size: var(--size-code);
+  line-height: 1.6;
+  margin: 0;
+  padding: var(--s2) var(--s3);
+  background: var(--panel);
+  border: 1px solid var(--rule);
+  border-bottom: 0;
+  color: var(--accent);
+  overflow-x: auto;
+}
+
+.run__cmd::before { content: "$ "; color: var(--text-2); }
+
+.run__out {
+  font-family: var(--face-display);
+  font-size: var(--size-code);
+  line-height: 1.55;
+  margin: 0;
+  padding: var(--s3);
+  background: var(--panel);
+  border: 1px solid var(--rule);
+  color: var(--text);
+  overflow-x: auto;
+  white-space: pre;
+  tab-size: 4;
+}
+
+.run__read {
+  margin: var(--s2) 0 0;
+  max-width: 66ch;
+  color: var(--text-2);
+  border-left: 3px solid var(--accent);
+  padding-left: var(--s2);
+}
+
+.run__read b { color: var(--text); font-weight: 600; }
+
+/* head:bare --------------------------------------------------------------- */
+
+.block { padding: var(--s6) 0; }
+.block-ruled { border-top: 1px solid var(--rule); }
+
+.block h2 {
+  font-family: var(--face-display);
+  font-weight: 700;
+  font-size: var(--size-title);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin: 0 0 var(--s4);
+}
+
+/* feat:list --------------------------------------------------------------- */
+
+.checks { list-style: none; margin: 0; padding: 0; max-width: 80ch; }
+
+.checks li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--s1);
+  padding: var(--s3) 0;
+  border-top: 1px solid var(--rule);
+}
+
+@media (min-width: 768px) {
+  .checks li { grid-template-columns: 12ch minmax(0, 1fr); gap: var(--s3); align-items: baseline; }
+}
+
+.checks li:first-child { border-top: 0; }
+
+.sev {
+  font-family: var(--face-display);
+  font-size: var(--size-label);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.sev-fail { color: var(--accent); }
+.sev-fail::after { content: " \2588"; }
+.sev-warn { color: var(--text-2); }
+.sev-warn::after { content: " \2591"; }
+
+.checks p { margin: 0; color: var(--text-2); max-width: 60ch; }
+.checks strong { color: var(--text); font-weight: 600; }
+
+/* foot:line --------------------------------------------------------------- */
+
+.foot { border-top: 1px solid var(--rule); padding: var(--s4) 0 var(--s7); }
+
+.foot .shell {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s1) var(--s4);
+  font-family: var(--face-display);
+  font-size: var(--size-label);
+  letter-spacing: 0.03em;
+  color: var(--text-2);
+}
+
+/* link states ------------------------------------------------------------- */
+
+a {
+  color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  display: inline-block;
+  padding: 4px 0;
+  min-height: 24px;
+  transition: color 140ms var(--ease-exit);
+}
+a:hover { color: var(--text); }
+a:active { color: var(--text); text-decoration-thickness: 3px; }
+a:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; color: var(--text); }
+a[aria-disabled="true"] { color: var(--text-2); text-decoration: line-through; pointer-events: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  a { transition-duration: 0.01ms; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="tier__utility">
+    <div class="shell">
+      <span>straightedge/scripts</span>
+      <span>python 3.13.15</span>
+      <span><a href="index.html">index</a></span>
+    </div>
+  </div>
+  <div class="tier__primary">
+    <div class="shell">
+      <p class="tier__word">contrast.py <span>/</span> scan.py</p>
+      <p class="tier__run">gate scripts, run against this example set</p>
+    </div>
+  </div>
+</header>
+
+<main class="shell">
+
+  <section class="intro">
+    <h1>The palette did not pass because it looked fine.</h1>
+    <p>Below is the unedited output of the runs that set and corrected the colors used in example 03 of this set. Two pairings failed. The tokens changed. Nothing was talked into passing.</p>
+  </section>
+
+  <section class="run">
+    <p class="run__cmd">python scripts/contrast.py --palette "#BFB8AA,#1B1712,#423A2E,#8A3B12,#5F5A50"</p>
+<pre class="run__out">FG         BG            RATIO  BODY  LARGE  UI
+----------------------------------------------------
+#BFB8AA    #1B1712       9.04:1  PASS  PASS   PASS
+#BFB8AA    #423A2E       5.68:1  PASS  PASS   PASS
+#BFB8AA    #8A3B12       3.92:1  FAIL  PASS   PASS
+#BFB8AA    #5F5A50       3.48:1  FAIL  PASS   PASS
+#1B1712    #423A2E       1.59:1  FAIL  FAIL   FAIL
+#1B1712    #8A3B12       2.30:1  FAIL  FAIL   FAIL
+#1B1712    #5F5A50       2.60:1  FAIL  FAIL   FAIL
+#423A2E    #8A3B12       1.45:1  FAIL  FAIL   FAIL
+#423A2E    #5F5A50       1.63:1  FAIL  FAIL   FAIL
+#8A3B12    #5F5A50       1.13:1  FAIL  FAIL   FAIL
+
+Unusable as a text or UI pairing (6):
+  #1B1712 on #423A2E at 1.59:1
+  #1B1712 on #8A3B12 at 2.30:1
+  #1B1712 on #5F5A50 at 2.60:1
+  #423A2E on #8A3B12 at 1.45:1
+  #423A2E on #5F5A50 at 1.63:1
+  #8A3B12 on #5F5A50 at 1.13:1
+These are decoration-only pairs. Do not put type or a control across them.</pre>
+    <p class="run__read">The accent <b>#8A3B12</b> reached only <b>3.92:1</b> against the field. That clears large text at 3:1 and fails body at 4.5:1. Darkening the accent was cheaper than restricting where it could be used.</p>
+  </section>
+
+  <section class="run">
+    <p class="run__cmd">python scripts/contrast.py --pair "#6E2F0E" "#BFB8AA"</p>
+<pre class="run__out">#6E2F0E on #BFB8AA
+ratio 5.13:1
+  body text                              PASS  needs 4.5:1
+  large text (24px / 18.66px bold)       PASS  needs 3.0:1
+  UI components, icons, focus            PASS  needs 3.0:1
+  AAA body                               FAIL  needs 7.0:1
+  AAA large                              PASS  needs 4.5:1</pre>
+    <p class="run__read">Passing at <b>5.13:1</b> rather than parking on the 4.5 floor. The AA gate is a floor, not a target, and AAA was not the standard claimed for this set.</p>
+  </section>
+
+  <section class="run">
+    <p class="run__cmd">python scripts/scan.py references/gates.md references/type.md scripts/contrast.py templates/tokens.css</p>
+<pre class="run__out">scanned 4 file(s)
+
+clean</pre>
+    <p class="run__read">The ship scan reads copy and markup for the things that survive a careless pass: the em dash, recycled design folklore, filler vocabulary, tracking set in pixels, an image with no alt text, motion with no reduced-motion path.</p>
+  </section>
+
+  <section class="block block-ruled">
+    <h2>What the scan refuses</h2>
+    <ul class="checks">
+      <li>
+        <span class="sev sev-fail">FAIL</span>
+        <p><strong>Blocks delivery.</strong> The em dash at U+2014, paired hyphens standing in for one, an image element with no alt attribute, tracking declared in px, browser storage, and any motion declaration on a file with no prefers-reduced-motion rule.</p>
+      </li>
+      <li>
+        <span class="sev sev-fail">FAIL</span>
+        <p><strong>Folklore claims.</strong> Roughly thirty recycled statistics and design myths matched by pattern, so a familiar-sounding number cannot slip into the copy or the rationale unchallenged.</p>
+      </li>
+      <li>
+        <span class="sev sev-warn">WARN</span>
+        <p><strong>Needs a look.</strong> Filler vocabulary, uppercase runs, a declared size under 16px, a removed focus outline, a fixed-height container with clipped overflow, and a missing credit line.</p>
+      </li>
+    </ul>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="shell">
+    <span>Shape: Console</span>
+    <span>Example 02 of 06</span>
+    <span><a href="index.html">Back to the set</a></span>
+    <span>Designed by IamAlvinV</span>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The numeric floors, and the clause each one comes from</title>
+<meta name="description" content="Every hard threshold Straightedge enforces, with the WCAG 2.2 success criterion or Core Web Vitals metric it is drawn from.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* Straightedge · shape: Counter · base: #BFB8AA · accent: #6E2F0E · display: grotesque
+ * nav: nav:links · foot: foot:pair
+ * gates: contrast pass · reflow pass · scan clean
+ */
+
+:root {
+  --field:  #BFB8AA;
+  --ink:    #1B1712;
+  --ink-2:  #423A2E;
+  --accent: #6E2F0E;
+  --rule:   #5F5A50;
+
+  --face-display: "Space Grotesk", system-ui, sans-serif;
+  --face-body:    "Source Sans 3", system-ui, sans-serif;
+
+  --size-lead:   clamp(4.5rem, 17vw, 13rem);
+  --size-figure: clamp(2.369rem, 6.4vw, 4.206rem);
+  --size-title:  clamp(1.331rem, 2.6vw, 1.775rem);
+  --size-lede:   1.331rem;
+  --size-body:   1rem;
+  --size-label:  0.875rem;
+
+  --s1: 8px;  --s2: 16px; --s3: 24px; --s4: 32px;
+  --s5: 40px; --s6: 48px; --s7: 64px; --s8: 104px;
+
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { overflow-x: clip; -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--field);
+  color: var(--ink);
+  font-family: var(--face-body);
+  font-size: var(--size-body);
+  line-height: 1.6;
+  overflow-x: clip;
+}
+
+.shell {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--s3);
+}
+
+@media (min-width: 768px) { .shell { padding: 0 var(--s6); } }
+
+/* nav:links --------------------------------------------------------------- */
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--s1) var(--s4);
+  padding-top: var(--s3);
+  padding-bottom: var(--s3);
+  font-size: var(--size-label);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* hero:figure ------------------------------------------------------------- */
+
+.lead {
+  padding: var(--s6) 0 var(--s7);
+  border-bottom: 3px solid var(--ink);
+}
+
+.lead__figure {
+  display: block;
+  font-family: var(--face-display);
+  font-weight: 700;
+  font-size: var(--size-lead);
+  line-height: 0.86;
+  letter-spacing: -0.04em;
+  color: var(--accent);
+  margin: 0;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.lead h1 {
+  font-family: var(--face-display);
+  font-weight: 500;
+  font-size: var(--size-title);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin: var(--s4) 0 0;
+  max-width: 30ch;
+}
+
+.lead__note {
+  margin: var(--s3) 0 0;
+  max-width: 58ch;
+  color: var(--ink-2);
+}
+
+.clause {
+  display: inline-block;
+  margin-top: var(--s3);
+  font-size: var(--size-label);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  border-top: 2px solid var(--accent);
+  padding-top: var(--s1);
+}
+
+/* head:stack -------------------------------------------------------------- */
+
+.set { padding: var(--s7) 0 0; }
+
+.set__label {
+  font-size: var(--size-label);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  margin: 0 0 var(--s1);
+}
+
+.set__head {
+  font-family: var(--face-display);
+  font-weight: 700;
+  font-size: var(--size-title);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin: 0 0 var(--s5);
+  padding-bottom: var(--s2);
+  border-bottom: 1px solid var(--rule);
+}
+
+/* the counter grid -------------------------------------------------------- */
+
+.figures {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  margin: 0 0 var(--s6);
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 640px) { .figures { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .figures { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+.figures li {
+  padding: var(--s4) var(--s3) var(--s5) 0;
+  border-top: 1px solid var(--rule);
+}
+
+.figures b {
+  display: block;
+  font-family: var(--face-display);
+  font-weight: 700;
+  font-size: var(--size-figure);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  margin-bottom: var(--s2);
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.figures h3 {
+  font-size: var(--size-body);
+  font-weight: 600;
+  line-height: 1.5;
+  margin: 0 0 var(--s1);
+  max-width: 30ch;
+}
+
+.figures p {
+  margin: 0 0 var(--s2);
+  color: var(--ink-2);
+  max-width: 38ch;
+}
+
+.figures cite {
+  font-style: normal;
+  font-size: var(--size-label);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* foot:pair --------------------------------------------------------------- */
+
+.foot {
+  border-top: 3px solid var(--ink);
+  padding: var(--s7) 0 var(--s8);
+}
+
+.foot__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--s6);
+}
+
+@media (min-width: 768px) {
+  .foot__grid { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: var(--s7); }
+}
+
+.foot h2 {
+  font-family: var(--face-display);
+  font-weight: 700;
+  font-size: var(--size-lede);
+  line-height: 1.3;
+  margin: 0 0 var(--s2);
+}
+
+.foot p { margin: 0 0 var(--s2); max-width: 54ch; color: var(--ink-2); }
+
+.foot ul { list-style: none; margin: 0; padding: 0; }
+.foot li { border-top: 1px solid var(--rule); }
+.foot li a { display: block; width: 100%; padding: var(--s2) 0; }
+
+.credit {
+  margin-top: var(--s6);
+  font-size: var(--size-label);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+/* link states ------------------------------------------------------------- */
+
+a {
+  color: var(--ink);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  min-height: 24px;
+  transition: color 140ms var(--ease-exit);
+}
+a:hover { color: var(--accent); }
+a:active { color: var(--accent); text-decoration-thickness: 3px; }
+a:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; color: var(--ink); }
+a[aria-disabled="true"] { color: var(--ink-2); text-decoration: line-through; pointer-events: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  a { transition-duration: 0.01ms; }
+}
+</style>
+</head>
+<body>
+
+<header class="shell">
+  <nav class="links" aria-label="Set">
+    <a href="index.html">The set</a>
+    <a href="01-statement.html">Gate or guide</a>
+    <a href="02-console.html">Gate output</a>
+  </nav>
+</header>
+
+<main class="shell">
+
+  <section class="lead">
+    <p class="lead__figure">4.5:1</p>
+    <h1>The contrast ratio body text must reach before anything else about a design is worth discussing.</h1>
+    <p class="lead__note">It is a floor, not a target. A pairing that lands on 4.51 passes and still reads as thin. Straightedge computes the ratio with a script and refuses to round up.</p>
+    <p class="clause">WCAG 2.2, SC 1.4.3, Level AA</p>
+  </section>
+
+  <section class="set">
+    <p class="set__label">Contrast</p>
+    <h2 class="set__head">What a pairing has to reach</h2>
+    <ul class="figures">
+      <li>
+        <b>3:1</b>
+        <h3>Large text, and every non-text element that carries meaning</h3>
+        <p>Large means 24px, or 18.66px at bold weight. The same floor covers icons, form borders, and focus rings.</p>
+        <cite>SC 1.4.3 and SC 1.4.11, AA</cite>
+      </li>
+      <li>
+        <b>7:1</b>
+        <h3>Body text under the enhanced standard</h3>
+        <p>The bar Straightedge applies to government, healthcare, finance, and any work whose accessibility is publicly exposed.</p>
+        <cite>SC 1.4.6, Level AAA</cite>
+      </li>
+      <li>
+        <b>4.5:1</b>
+        <h3>Large text under the enhanced standard</h3>
+        <p>Paired with the 7:1 body figure. Logos, decorative text, and disabled controls sit outside both.</p>
+        <cite>SC 1.4.6, Level AAA</cite>
+      </li>
+    </ul>
+
+    <p class="set__label">Size and target</p>
+    <h2 class="set__head">What a hand has to hit</h2>
+    <ul class="figures">
+      <li>
+        <b>24px</b>
+        <h3>Minimum interactive target, square</h3>
+        <p>Smaller targets can still pass through the spacing exception, which needs at least 24px between the centers of neighboring controls.</p>
+        <cite>SC 2.5.8, Level AA</cite>
+      </li>
+      <li>
+        <b>44px</b>
+        <h3>Enhanced target, and the working figure for touch</h3>
+        <p>Apple states 44pt, Material states 48dp. Straightedge treats 44 to 48 as the range for anything primary.</p>
+        <cite>SC 2.5.5, Level AAA</cite>
+      </li>
+      <li>
+        <b>80</b>
+        <h3>Characters per line, hard ceiling</h3>
+        <p>The working measure sits at 50 to 75, with 66 as the target for a single column. Set it in ch or em, never px.</p>
+        <cite>SC 1.4.8, Level AAA</cite>
+      </li>
+    </ul>
+
+    <p class="set__label">Reflow and spacing</p>
+    <h2 class="set__head">What the layout has to survive</h2>
+    <ul class="figures">
+      <li>
+        <b>320px</b>
+        <h3>Width at which the page still works in one direction</h3>
+        <p>Equal to a 1280px desktop viewport at 400% zoom. Data tables, maps, and complex toolbars are the stated exceptions.</p>
+        <cite>SC 1.4.10, Level AA</cite>
+      </li>
+      <li>
+        <b>1.5</b>
+        <h3>Line height the user can force without breaking the page</h3>
+        <p>Applied at the same time as 0.12em letter spacing, 0.16em word spacing, and paragraph spacing at twice the font size.</p>
+        <cite>SC 1.4.12, Level AA</cite>
+      </li>
+      <li>
+        <b>16px</b>
+        <h3>Body floor on screen</h3>
+        <p>Straightedge holds this as a house rule rather than a criterion. Anything under 24px counts as normal text for contrast.</p>
+        <cite>House rule, tied to SC 1.4.3</cite>
+      </li>
+    </ul>
+
+    <p class="set__label">Loading</p>
+    <h2 class="set__head">What the browser has to finish</h2>
+    <ul class="figures">
+      <li>
+        <b>2.5s</b>
+        <h3>Largest Contentful Paint</h3>
+        <p>Measured at the 75th percentile of real users, on mobile and desktop separately.</p>
+        <cite>Core Web Vitals</cite>
+      </li>
+      <li>
+        <b>200ms</b>
+        <h3>Interaction to Next Paint</h3>
+        <p>Javascript is the usual cause when this figure slips. Defer heavy scripts before touching anything else.</p>
+        <cite>Core Web Vitals</cite>
+      </li>
+      <li>
+        <b>0.1</b>
+        <h3>Cumulative Layout Shift</h3>
+        <p>Explicit width and height on every image, and font-display set to swap, remove most of what moves.</p>
+        <cite>Core Web Vitals</cite>
+      </li>
+    </ul>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="shell foot__grid">
+    <div>
+      <h2>Where these came from</h2>
+      <p>Every figure on this page is published by the W3C in Web Content Accessibility Guidelines 2.2, or by the Chrome team as a Core Web Vitals threshold. None of them were produced for this page.</p>
+      <p>The one exception is labeled: the 16px body floor is a Straightedge house rule, not a success criterion.</p>
+      <p class="credit">Shape: Counter &nbsp;&middot;&nbsp; Example 03 of 06 &nbsp;&middot;&nbsp; Designed by IamAlvinV</p>
+    </div>
+    <div>
+      <h2>The set</h2>
+      <ul>
+        <li><a href="index.html">All six examples</a></li>
+        <li><a href="01-statement.html">01 Statement</a></li>
+        <li><a href="02-console.html">02 Console</a></li>
+        <li><a href="04-timeline.html">04 Timeline</a></li>
+        <li><a href="05-register.html">05 Register</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

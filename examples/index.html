@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Five shapes, one system: the Straightedge example set</title>
+<meta name="description" content="Five example pages built with Straightedge, each on a different structural shape, with the rotation and gate results for every one.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Rubik:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Straightedge · shape: Gallery · base: #C8C3B8 · accent: #1B4D8F · display: display slab
+ * nav: nav:pill · foot: foot:index
+ * gates: contrast pass · reflow pass · scan clean
+ */
+
+:root {
+  --field:  #C8C3B8;
+  --ink:    #14120F;
+  --ink-2:  #45403A;
+  --accent: #1B4D8F;
+  --rule:   #63605A;
+
+  --face-display: "Alfa Slab One", Georgia, serif;
+  --face-body:    "Rubik", system-ui, sans-serif;
+
+  --size-head:  clamp(2.369rem, 6.6vw, 5.612rem);
+  --size-plate: clamp(1.775rem, 3.6vw, 3.156rem);
+  --size-title: 1.775rem;
+  --size-lede:  1.331rem;
+  --size-body:  1rem;
+  --size-label: 0.875rem;
+
+  --s1: 8px;  --s2: 16px; --s3: 24px; --s4: 32px;
+  --s5: 40px; --s6: 48px; --s7: 64px; --s8: 104px;
+
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { overflow-x: clip; -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--field);
+  color: var(--ink);
+  font-family: var(--face-body);
+  font-size: var(--size-body);
+  line-height: 1.6;
+  overflow-x: clip;
+}
+
+.shell {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--s3);
+}
+
+@media (min-width: 768px) { .shell { padding: 0 var(--s6); } }
+
+/* nav:pill ---------------------------------------------------------------- */
+
+.pill {
+  position: sticky;
+  top: var(--s2);
+  z-index: 10;
+  margin: var(--s2) auto 0;
+  width: calc(100% - var(--s4));
+  max-width: 1104px;
+  background: var(--ink);
+  color: var(--field);
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  padding: var(--s1) var(--s3);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0 var(--s3);
+}
+
+.pill__word {
+  font-family: var(--face-display);
+  font-size: var(--size-body);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.pill__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--s3);
+  font-size: var(--size-label);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.pill a { color: var(--field); }
+.pill a:hover, .pill a:active { color: var(--field); text-decoration-thickness: 3px; }
+.pill a:focus-visible { outline: 3px solid var(--field); outline-offset: 2px; }
+
+/* hero:slab --------------------------------------------------------------- */
+
+.open { padding: var(--s7) 0 var(--s6); }
+
+.open h1 {
+  font-family: var(--face-display);
+  font-size: var(--size-head);
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+  margin: 0 0 var(--s4);
+  max-width: 16ch;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.open p {
+  font-size: var(--size-lede);
+  line-height: 1.5;
+  max-width: 62ch;
+  margin: 0;
+  color: var(--ink-2);
+}
+
+/* the gallery sequence ---------------------------------------------------- */
+
+.plate { margin: 0 0 var(--s8); }
+
+.plate img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: top center;
+  border: 2px solid var(--ink);
+  background: var(--field);
+}
+
+.plate figcaption {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--s3);
+  padding-top: var(--s3);
+}
+
+@media (min-width: 900px) {
+  .plate figcaption {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: var(--s7);
+  }
+}
+
+.plate__n {
+  font-family: var(--face-display);
+  font-size: var(--size-label);
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  margin: 0 0 var(--s1);
+}
+
+.plate__shape {
+  font-family: var(--face-display);
+  font-size: var(--size-plate);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  margin: 0 0 var(--s2);
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.plate__idea { margin: 0 0 var(--s3); max-width: 52ch; color: var(--ink-2); }
+
+.spec { margin: 0; font-size: var(--size-label); }
+
+.spec div {
+  display: grid;
+  grid-template-columns: 11ch minmax(0, 1fr);
+  gap: var(--s2);
+  padding: var(--s1) 0;
+  border-top: 1px solid var(--rule);
+}
+
+.spec dt { letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); }
+.spec dd { margin: 0; font-weight: 500; }
+
+.open-link {
+  display: inline-block;
+  margin-top: var(--s3);
+  padding: var(--s1) var(--s3);
+  min-height: 44px;
+  line-height: 28px;
+  background: var(--accent);
+  color: var(--field);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  border: 2px solid var(--accent);
+}
+
+.open-link:hover { background: var(--ink); border-color: var(--ink); color: var(--field); }
+.open-link:active { background: var(--ink); border-color: var(--ink); color: var(--field); }
+.open-link:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+
+/* foot:index -------------------------------------------------------------- */
+
+.foot { border-top: 3px solid var(--ink); padding: var(--s6) 0 var(--s8); }
+
+.foot h2 {
+  font-family: var(--face-display);
+  font-size: var(--size-title);
+  line-height: 1.2;
+  margin: 0 0 var(--s4);
+}
+
+.foot ul { list-style: none; margin: 0 0 var(--s6); padding: 0; }
+
+.foot li { border-top: 1px solid var(--rule); }
+.foot li:last-child { border-bottom: 1px solid var(--rule); }
+
+.foot li a {
+  display: grid;
+  grid-template-columns: 5ch minmax(0, 1fr);
+  gap: var(--s2);
+  align-items: baseline;
+  padding: var(--s2) 0;
+  min-height: 44px;
+  width: 100%;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.foot li a:hover { color: var(--accent); }
+.foot li a:active { color: var(--accent); }
+.foot li a:focus-visible { outline: 3px solid var(--ink); outline-offset: -3px; }
+
+.foot li b { font-family: var(--face-display); font-weight: 400; color: var(--accent); }
+.foot li span { text-decoration: underline; text-underline-offset: 4px; }
+
+.foot__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s1) var(--s4);
+  padding-top: var(--s3);
+  border-top: 1px solid var(--rule);
+  font-size: var(--size-label);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+/* link states ------------------------------------------------------------- */
+
+a {
+  color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  min-height: 24px;
+  transition: color 140ms var(--ease-exit), background-color 140ms var(--ease-exit);
+}
+a:hover { color: var(--ink); }
+a:active { color: var(--ink); }
+a[aria-disabled="true"] { color: var(--ink-2); text-decoration: line-through; pointer-events: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  a { transition-duration: 0.01ms; }
+}
+</style>
+</head>
+<body>
+
+<nav class="pill" aria-label="Set">
+  <p class="pill__word">Straightedge</p>
+  <span class="pill__links">
+    <a href="01-statement.html">01</a>
+    <a href="02-console.html">02</a>
+    <a href="03-counter.html">03</a>
+    <a href="04-timeline.html">04</a>
+    <a href="05-register.html">05</a>
+  </span>
+</nav>
+
+<main class="shell">
+
+  <section class="open">
+    <h1>Five briefs, five shapes, no repeats.</h1>
+    <p>Each page below sits on a different structural shape, picked before any color or type decision and cleared by the rotation script. No two consecutive pages share a shape, a navigation part, a footer part, or more than one of the three dressing axes. Every pairing shown was computed with the contrast gate.</p>
+  </section>
+
+  <figure class="plate">
+    <img src="renders/01.png" width="2880" height="5376" alt="Full-page render of the Statement example: an oversized condensed headline reading that a design which fails a gate is wrong, set in near-black and red on warm off-white paper.">
+    <figcaption>
+      <div>
+        <p class="plate__n">Example 01</p>
+        <h2 class="plate__shape">Statement</h2>
+        <p class="plate__idea">One oversized display line holds the first screen alone. Everything after it is small, ruled, and subordinate. The idea: a gate is not an opinion.</p>
+        <a class="open-link" href="01-statement.html">Open the page</a>
+      </div>
+      <dl class="spec">
+        <div><dt>Nav</dt><dd>nav:mark</dd></div>
+        <div><dt>Foot</dt><dd>foot:statement</dd></div>
+        <div><dt>Band</dt><dd>Light, #F4F1EA</dd></div>
+        <div><dt>Voice</dt><dd>Condensed heavy, Anton</dd></div>
+        <div><dt>Accent</dt><dd>#B3261E, 5.79:1</dd></div>
+      </dl>
+    </figcaption>
+  </figure>
+
+  <figure class="plate">
+    <img src="renders/02.png" width="2880" height="5168" alt="Full-page render of the Console example: monospace terminal output from the contrast and scan scripts on a dark blue-grey ground, with pale blue command lines.">
+    <figcaption>
+      <div>
+        <p class="plate__n">Example 02</p>
+        <h2 class="plate__shape">Console</h2>
+        <p class="plate__idea">The product is the hero and the copy sits around it. The panels hold unedited output from the runs that set the palette of example 03.</p>
+        <a class="open-link" href="02-console.html">Open the page</a>
+      </div>
+      <dl class="spec">
+        <div><dt>Nav</dt><dd>nav:tier</dd></div>
+        <div><dt>Foot</dt><dd>foot:line</dd></div>
+        <div><dt>Band</dt><dd>Dark, #0E1116</dd></div>
+        <div><dt>Voice</dt><dd>Mono, JetBrains Mono</dd></div>
+        <div><dt>Accent</dt><dd>#79C0FF, 9.72:1</dd></div>
+      </dl>
+    </figcaption>
+  </figure>
+
+  <figure class="plate">
+    <img src="renders/03.png" width="2880" height="6438" alt="Full-page render of the Counter example: a very large 4.5:1 figure in dark rust over a warm grey field, followed by a three-column grid of numeric accessibility thresholds.">
+    <figcaption>
+      <div>
+        <p class="plate__n">Example 03</p>
+        <h2 class="plate__shape">Counter</h2>
+        <p class="plate__idea">Figures lead and prose supports them. The shape needs real numbers, so every figure is a published WCAG criterion or a Core Web Vitals threshold, cited in the cell.</p>
+        <a class="open-link" href="03-counter.html">Open the page</a>
+      </div>
+      <dl class="spec">
+        <div><dt>Nav</dt><dd>nav:links</dd></div>
+        <div><dt>Foot</dt><dd>foot:pair</dd></div>
+        <div><dt>Band</dt><dd>Mid, #BFB8AA</dd></div>
+        <div><dt>Voice</dt><dd>Grotesque, Space Grotesk</dd></div>
+        <div><dt>Accent</dt><dd>#6E2F0E, 5.13:1</dd></div>
+      </dl>
+    </figcaption>
+  </figure>
+
+  <figure class="plate">
+    <img src="renders/04.png" width="2880" height="7198" alt="Full-page render of the Timeline example: a serif headline reading Color is step ten, above a ruled vertical spine of sixteen numbered steps on near-white paper, with two steps marked in green.">
+    <figcaption>
+      <div>
+        <p class="plate__n">Example 04</p>
+        <h2 class="plate__shape">Timeline</h2>
+        <p class="plate__idea">The order is the content. Sixteen steps run down a single spine, with the two that decide whether a piece looks generic marked as pivots.</p>
+        <a class="open-link" href="04-timeline.html">Open the page</a>
+      </div>
+      <dl class="spec">
+        <div><dt>Nav</dt><dd>nav:index</dd></div>
+        <div><dt>Foot</dt><dd>foot:invert</dd></div>
+        <div><dt>Band</dt><dd>Light, #FBFAF7</dd></div>
+        <div><dt>Voice</dt><dd>Serif, Fraunces</dd></div>
+        <div><dt>Accent</dt><dd>#2F5D50, 7.18:1</dd></div>
+      </dl>
+    </figcaption>
+  </figure>
+
+  <figure class="plate">
+    <img src="renders/05.png" width="2880" height="5668" alt="Full-page render of the Register example: an orange band across the top of a near-black sheet, a geometric sans title reading Shape Catalog Twenty-Two, and a strict ruled grid of twenty-two cells.">
+    <figcaption>
+      <div>
+        <p class="plate__n">Example 05</p>
+        <h2 class="plate__shape">Register</h2>
+        <p class="plate__idea">A print composition rather than a screen one. Strict grid, content in cells, rules visible. Twenty-two shapes on a single sheet, six of them marked as used in this set.</p>
+        <a class="open-link" href="05-register.html">Open the page</a>
+      </div>
+      <dl class="spec">
+        <div><dt>Nav</dt><dd>nav:band</dd></div>
+        <div><dt>Foot</dt><dd>foot:mark</dd></div>
+        <div><dt>Band</dt><dd>Dark, #131211</dd></div>
+        <div><dt>Voice</dt><dd>Geometric sans, Jost</dd></div>
+        <div><dt>Accent</dt><dd>#EA5A2B, 5.34:1</dd></div>
+      </dl>
+    </figcaption>
+  </figure>
+
+</main>
+
+<footer class="foot">
+  <div class="shell">
+    <h2>The set</h2>
+    <ul>
+      <li><a href="01-statement.html"><b>01</b><span>Statement, the gate and the guide</span></a></li>
+      <li><a href="02-console.html"><b>02</b><span>Console, the gate output for this set</span></a></li>
+      <li><a href="03-counter.html"><b>03</b><span>Counter, the numeric floors and their clauses</span></a></li>
+      <li><a href="04-timeline.html"><b>04</b><span>Timeline, the order of operations</span></a></li>
+      <li><a href="05-register.html"><b>05</b><span>Register, the shape catalog on one sheet</span></a></li>
+      <li><a href="README.md"><b>06</b><span>Read me, the build record for the whole set</span></a></li>
+    </ul>
+    <p class="foot__meta">
+      <span>Shape: Gallery</span>
+      <span>Index of 06</span>
+      <span>Designed by IamAlvinV</span>
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>

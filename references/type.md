@@ -54,12 +54,15 @@ Run `scripts/typescale.py` to generate the steps as CSS custom properties.
 | Context | Tracking | Line-height |
 |---|---|---|
 | Body | 0, font default | 1.4 to 1.6, at least 1.5 |
-| Display above 60px | -0.02 to -0.03em | 1.0 to 1.1 |
+| Display 60 to 90px | -0.02 to -0.03em | 1.0 to 1.1 |
+| Display above 90px | -0.02 to -0.04em | 0.85 to 1.0 |
 | Headings, multi-line | slightly tight | 1.1 to 1.2 |
 | All caps, CTA labels | +0.05 to +0.1em | as set |
 | Very small text | slightly open | looser |
 
 Rule: smaller relative size wants more tracking, larger wants less. Set tracking in `em`. Never letterspace lowercase body text.
+
+Leading tightens as size grows, and above roughly 90px it goes below 1.0. At that scale the gap between lines of one thought opens visibly at 1.1, which reads as two thoughts. Sub-1.0 leading on a display line is craft, not a violation. Body leading never follows it down: 1.5 minimum, always.
 
 ## Typographic voice
 

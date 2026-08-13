@@ -98,8 +98,9 @@ Full detail in `references/gates.md`. This is the card.
 - Compute with `scripts/contrast.py`. Never carry meaning by color alone.
 
 **Type**
-- Body floor 16px. Measure 50 to 75 characters, 66 target, 80 ceiling, set in `ch` or `em`.
-- Body line-height at least 1.5 unitless. Headings 1.1 to 1.2.
+- Body floor 16px, for body copy. Caps micro-labels may set smaller and must still clear 4.5:1.
+- Measure 50 to 75 characters, 66 target, 80 ceiling, set in `ch` or `em`.
+- Body line-height at least 1.5 unitless. Headings 1.1 to 1.2. Display above 90px may go to 0.85.
 - Tracking in `em`. Body 0. Display above 60px at -0.02 to -0.03em. Caps and small labels at +0.05 to +0.1em.
 - No body copy in all caps. Three type sizes maximum in one view.
 - Survives forced line-height 1.5, letter-spacing 0.12em, word-spacing 0.16em, paragraph 2x. No fixed-height text containers.
